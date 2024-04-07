@@ -19,20 +19,23 @@ type Props = {
   to: ICurrency | null;
 };
 
-const Rates = ({ to }: Props) =>
+const Rates = ({ to }: Props) => (
   <StyledRates>
     <StyledRate>
       {to ? (
-        <>1 CZK = <strong>{`${convertFromCZK(1, to)} ${to.code}`}</strong></>
+        <>
+          1 CZK = <strong>{`${convertFromCZK(1, to)} ${to.code}`}</strong>
+        </>
       ) : (
         <strong>NO CURRENCY TO CONVERT</strong>
       )}
     </StyledRate>
-    {to &&
+    {to && (
       <StyledRate>
         1 {to.code} = <strong>{convertToCZK(1, to)} CZK</strong>
       </StyledRate>
-    }
+    )}
   </StyledRates>
+);
 
 export default Rates;

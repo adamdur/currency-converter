@@ -11,11 +11,6 @@ type Props = {
   to: ICurrency | null;
 };
 
-const Title = ({ to }: Props) =>
-  (
-    <StyledTitle>
-      {to ? `Convert CZK to ${to.code}` : 'Currency converter'}
-    </StyledTitle>
-  )
+const Title = ({ to }: Props) => <StyledTitle>{to ? `Convert CZK to ${to.code}` : 'Currency converter'}</StyledTitle>;
 
 export default Title;
