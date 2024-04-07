@@ -17,8 +17,8 @@ const StyledCurrencyField = styled.div`
 
 type Props = {
   currencies: ICurrency[];
-  to: ICurrency | null;
-  onToChange: (_: any, newValue: React.SetStateAction<null | ICurrency>) => void;
+  to: ICurrency | undefined;
+  onToChange: (_: any, newValue: React.SetStateAction<ICurrency | undefined>) => void;
   fromAmount: string;
   toAmount: string;
   onFromAmountChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
@@ -43,7 +43,7 @@ const CurrencyFields = ({ currencies, to, onToChange, fromAmount, toAmount, onFr
       <Autocomplete
         disableClearable
         options={currencies}
-        value={to ?? undefined}
+        value={to}
         getOptionLabel={(option) => {
           if (!option) return '';
           return `${option.country ? `${option.country} | ` : ''}${option.code}${option.currency ? ` | ${option.currency}` : ''}`;

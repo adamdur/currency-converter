@@ -1,11 +1,11 @@
 import { ICurrency } from '../../server/models/Currency/Currency';
 
-export const convertFromCZK = (amount: number, currency: ICurrency | null) => {
+export const convertFromCZK = (amount: number, currency: ICurrency | undefined) => {
   if (!currency) return '0';
   return ((amount / currency.rate) * currency.amount).toFixed(3);
 };
 
-export const convertToCZK = (amount: number, currency: ICurrency | null) => {
+export const convertToCZK = (amount: number, currency: ICurrency | undefined) => {
   if (!currency) return '0';
   return ((amount * currency.rate) / currency.amount).toFixed(3);
 };

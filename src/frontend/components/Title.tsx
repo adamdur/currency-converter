@@ -8,15 +8,15 @@ const StyledTitle = styled.h2`
 `;
 
 type Props = {
-  to: ICurrency | null;
+  to: ICurrency | undefined;
 };
 
 const Title = ({ to }: Props) =>
-  to && (
+  to ? (
     <StyledTitle>
       Convert CZK to
       {` ${to.code}`}
     </StyledTitle>
-  );
+  ) : null;
 
 export default Title;

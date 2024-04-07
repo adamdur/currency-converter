@@ -9,7 +9,7 @@ import Rates from './components/Rates';
 import CurrencyFields from './components/CurrencyFields';
 
 const App = () => {
-  const [to, setTo] = useState<ICurrency | null>(null);
+  const [to, setTo] = useState<ICurrency | undefined>(undefined);
   const [fromAmount, setFromAmount] = useState<string>('1');
   const [toAmount, setToAmount] = useState<string>('0');
   const { data: currencies, isLoading } = useQuery<ICurrency[]>({
@@ -19,13 +19,13 @@ const App = () => {
 
   useEffect(() => {
     if (currencies) {
-      const defaultCurrency = currencies.find((currency) => currency.code.toLowerCase() === 'eur') || null;
+      const defaultCurrency: ICurrency | undefined = currencies.find((currency) => currency.code.toLowerCase() === 'eur');
       if (!to) setTo(defaultCurrency);
       setToAmount(convertFromCZK(parseFloat(fromAmount), defaultCurrency));
     }
   }, [currencies]);
 
-  const handleToChange = (_: any, newValue: React.SetStateAction<null | ICurrency>) => {
+  const handleToChange = (_: any, newValue: React.SetStateAction<ICurrency | undefined>) => {
     setTo(newValue);
     if (newValue && typeof newValue !== 'function') {
       setToAmount(convertFromCZK(parseFloat(fromAmount), newValue));
