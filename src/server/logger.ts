@@ -10,13 +10,13 @@ const pinoPretty = {
   },
 };
 const logger = pino({
-  level: process.env.NODE_ENV === 'local' ? 'debug' : 'info',
+  level: ['test', 'local', 'development'].includes(process.env.NODE_ENV || '') ? 'debug' : 'info',
   formatters: {
     level: (level) => ({ level }),
   },
   messageKey: 'message',
   timestamp: () => `,"time": "${new Date().toISOString()}"`,
-  ...(['test', 'local'].includes(process.env.NODE_ENV || '') ? pinoPretty : {}),
+  ...(['test', 'local', 'development'].includes(process.env.NODE_ENV || '') ? pinoPretty : {}),
 });
 
 export default logger;

@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "start:dev": "NODE_ENV=local supervisor --watch src/server -- -r 'babel-register-ts' src/server/index.ts",
+    "start:dev": "NODE_ENV=development supervisor --watch src/server -- -r 'babel-register-ts' src/server/index.ts",
     "build": "npm run build:server && npm run build:client",
     "build:server": "babel ./src/server -d dist/server --copy-files --extensions .ts",
     "build:client": "webpack --config webpack/webpack.prod.js",
@@ -16,7 +16,7 @@
     "prettier-write": "prettier --write \"src/**/*.{ts,tsx,scss}\"",
     "docker-create-image": "npm ci && npm run build && cross-var docker build -t \"duris/currency-converter:latest\" -t \"duris/currency-converter:$npm_package_version\" .",
     "docker-push-image": "npm run docker-create-image && docker push \"duris/currency-converter:latest\" && cross-var docker push \"duris/currency-converter:$npm_package_version\"",
-    "docker-run-image": "docker run --rm -e NODE_ENV=local-docker -p 8000:8000 duris/currency-converter"
+    "docker-run-image": "docker run --rm --env-file .env.local-docker -p 8000:8000 duris/currency-converter"
   },
   "author": "Adam Duris",
   "license": "ISC",
@@ -27,6 +27,7 @@
     "@tanstack/react-query": "^5.28.9",
     "body-parser": "^1.20.2",
     "dotenv": "^16.4.5",
+    "dotenv-webpack": "^8.1.0",
     "express": "^4.19.2",
     "node-fetch": "^2.7.0",
     "pino": "^8.19.0",

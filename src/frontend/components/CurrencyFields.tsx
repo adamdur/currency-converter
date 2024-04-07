@@ -17,8 +17,8 @@ const StyledCurrencyField = styled.div`
 
 type Props = {
   currencies: ICurrency[];
-  to: ICurrency | undefined;
-  onToChange: (_: any, newValue: React.SetStateAction<ICurrency | undefined>) => void;
+  to: ICurrency | null;
+  onToChange: (_: any, newValue: React.SetStateAction<ICurrency | null>) => void;
   fromAmount: string;
   toAmount: string;
   onFromAmountChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
@@ -40,17 +40,18 @@ const CurrencyFields = ({ currencies, to, onToChange, fromAmount, toAmount, onFr
     </StyledCurrencyField>
     <StyledCurrencyField>
       <AmountInput value={toAmount} onChange={onToAmountChange} />
-      <Autocomplete
-        disableClearable
-        options={currencies}
-        value={to}
-        getOptionLabel={(option) => {
-          if (!option) return '';
-          return `${option.country ? `${option.country} | ` : ''}${option.code}${option.currency ? ` | ${option.currency}` : ''}`;
-        }}
-        onChange={onToChange}
-        renderInput={(params) => <TextField {...params} />}
-      />
+      {currencies && (
+        <Autocomplete
+          options={currencies}
+          value={to}
+          getOptionLabel={(option) => {
+            if (!option) return '';
+            return `${option.country ? `${option.country} | ` : ''}${option.code}${option.currency ? ` | ${option.currency}` : ''}`;
+          }}
+          onChange={onToChange}
+          renderInput={(params) => <TextField {...params} />}
+        />
+      )}
     </StyledCurrencyField>
   </StyledFieldsWrapper>
 );

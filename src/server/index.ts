@@ -6,9 +6,9 @@ import routes from './routes';
 
 const app = express();
 const port = process.env.PORT || 8000;
-const WAIT_BEFORE_SERVER_CLOSE = process.env.NODE_ENV === 'local' ? 0 : parseInt(process.env.WAIT_BEFORE_SERVER_CLOSE || '10', 10);
+const WAIT_BEFORE_SERVER_CLOSE = ['local', 'development'].includes(process.env.NODE_ENV || '') ? 0 : parseInt(process.env.WAIT_BEFORE_SERVER_CLOSE || '10', 10);
 
-if (process.env.NODE_ENV === 'local') {
+if (['local', 'development'].includes(process.env.NODE_ENV || '')) {
   // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
   const devMiddleware = require('./middleware/devMiddleware').default;
   app.use(devMiddleware);

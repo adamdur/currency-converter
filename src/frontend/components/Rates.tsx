@@ -16,19 +16,23 @@ const StyledRate = styled.p`
 `;
 
 type Props = {
-  to: ICurrency | undefined;
+  to: ICurrency | null;
 };
 
 const Rates = ({ to }: Props) =>
-  to ? (
-    <StyledRates>
-      <StyledRate>
-        1 CZK = <strong>{`${convertFromCZK(1, to)} ${to.code}`}</strong>
-      </StyledRate>
+  <StyledRates>
+    <StyledRate>
+      {to ? (
+        <>1 CZK = <strong>{`${convertFromCZK(1, to)} ${to.code}`}</strong></>
+      ) : (
+        <strong>NO CURRENCY TO CONVERT</strong>
+      )}
+    </StyledRate>
+    {to &&
       <StyledRate>
         1 {to.code} = <strong>{convertToCZK(1, to)} CZK</strong>
       </StyledRate>
-    </StyledRates>
-  ) : null;
+    }
+  </StyledRates>
 
 export default Rates;
