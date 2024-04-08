@@ -28,6 +28,5 @@ describe('CNBCurrencyDataProvider', () => {
 
     const provider = new CNBCurrencyDataProvider('http://example.com');
     await expect(provider.getData()).rejects.toThrow('Invalid currency data format.');
-    // expect(() => provider.getData()).toThrow('Invalid currency data format.');
   });
 });
